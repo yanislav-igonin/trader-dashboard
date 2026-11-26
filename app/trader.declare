@@ -247,7 +247,7 @@ class BotCard extends Card [ width = 100%,
     View [ width = 100%,
         layout: WrappingLayout [ columns = { app.narrow ? 2 : 4 }, spacing = 12, rowSpacing = 12 ],
         Tile [ flexes = true, label = "Balance", value = { money(:balance) }, note = { "start " + money(:start) } ],
-        Tile [ flexes = true, label = "PnL", value = { signed(:pnl) }, note = "closed trades, net of fees", tone = { classroot.tone } ],
+        Tile [ flexes = true, label = "PnL", value = { signed(:pnl) }, note = "net of fees", tone = { classroot.tone } ],
         Tile [ flexes = true, label = "Trades", value = { "" + :trades }, note = { :wins + " wins" } ],
         Tile [ flexes = true, label = "Win rate", value = { :winRate + "%" }, note = { (:open ?? []).length + " open now" } ]
         ],
