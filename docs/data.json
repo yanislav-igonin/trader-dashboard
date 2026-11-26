@@ -1104,283 +1104,926 @@
  "trades": [
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1646.74,
    "exit": 1674.18,
-   "pnl": -0.91,
+   "pnl": -0.96,
    "at": "2026-11-25T17:40Z",
-   "why": "SL 1674 on bounce (sl order 01a21371-cea4-74a0-ad1f-ebad1dfe04ec)"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 58172.8,
    "exit": 59503.8,
    "pnl": -1.1,
    "at": "2026-11-25T17:16Z",
-   "why": "SL 59500 on bounce (sl order 01a21337-a820-78c1-85fe-753c1bf49cfd)"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1645.44,
    "exit": 1658.62,
    "pnl": -0.48,
    "at": "2026-11-25T15:01Z",
-   "why": "SL 1658 on spike to 1671.6, 2 min after entry, slippage to 1658.62 (sl order 01a21337-ceaf-7d92-9f67-0b87f9ab8834)"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1647.95,
    "exit": 1642.5,
    "pnl": 0.08,
    "at": "2026-11-25T14:58Z",
-   "why": "trailing SL 1624.95 (best 1608.86*1.01, 77% to TP0) above price after dump+bounce -> market close"
+   "why": "closed by the bot"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 59207.8,
    "exit": 58104.7,
    "pnl": 0.87,
    "at": "2026-11-25T14:58Z",
-   "why": "trailing SL 57873 (best 57300.38*1.01) above price after dump+bounce -> market close"
+   "why": "closed by the bot"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1664.53,
    "exit": 1650.93,
    "pnl": 0.33,
    "at": "2026-11-25T08:30Z",
-   "why": "trailing SL 1649.4"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 59450.7,
    "exit": 59264.0,
    "pnl": 0.07,
    "at": "2026-11-25T08:30Z",
-   "why": "trailing SL 59219"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 60256.3,
    "exit": 59553.5,
-   "pnl": 0.51,
+   "pnl": 0.52,
    "at": "2026-11-25T03:20Z",
-   "why": "trailing SL 59540"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1684.06,
    "exit": 1665.88,
-   "pnl": 0.46,
+   "pnl": 0.47,
    "at": "2026-11-25T03:19Z",
-   "why": "trailing SL 1665.6"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1690.57,
    "exit": 1681.22,
    "pnl": 0.2,
    "at": "2026-11-24T17:11Z",
-   "why": "trailing SL 1680.8"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
-   "entry": 61572.09,
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 61572.08571428571,
    "exit": 60187.9,
-   "pnl": 1.07,
+   "pnl": 1.08,
    "at": "2026-11-24T03:29Z",
-   "why": "trailing SL 60170"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1716.72,
    "exit": 1685.76,
-   "pnl": 0.85,
+   "pnl": 0.84,
    "at": "2026-11-24T03:27Z",
-   "why": "trailing SL 1685.7"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1727.34,
    "exit": 1719.44,
    "pnl": 0.14,
    "at": "2026-11-24T01:10Z",
-   "why": "trailing SL 1719.3"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
    "entry": 1737.32,
    "exit": 1732.69,
-   "pnl": 0.04,
+   "pnl": 0.05,
    "at": "2026-11-23T20:00Z",
-   "why": "trailing SL 1732.5"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
    "entry": 1770.39,
    "exit": 1757.08,
    "pnl": -0.48,
    "at": "2026-11-23T16:41Z",
-   "why": "SL 1758, slippage to 1757.08"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
    "entry": 1780.11,
    "exit": 1766.49,
    "pnl": -0.49,
    "at": "2026-11-23T15:46Z",
-   "why": "SL 1768 on pullback, slippage to 1766.49"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
    "entry": 1798.67,
    "exit": 1779.82,
-   "pnl": -0.63,
+   "pnl": -0.64,
    "at": "2026-11-23T14:48Z",
-   "why": "SL 1780 on pullback, 3 min after entry"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
    "entry": 1800.68,
    "exit": 1842.85,
    "pnl": 1.12,
    "at": "2026-11-23T14:26Z",
-   "why": "TP 1842 hit"
+   "why": "take profit"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 1734.83,
    "exit": 1763.4,
-   "pnl": -0.96,
+   "pnl": -0.95,
    "at": "2026-11-23T13:56Z",
-   "why": "SL 1757 on +5% pump, slippage to 1763.4"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 61429.5,
    "exit": 62133.6,
-   "pnl": -0.69,
+   "pnl": -0.68,
    "at": "2026-11-23T13:56Z",
-   "why": "SL 62100 on +5% pump, slippage"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 60905.0,
    "exit": 61860.2,
-   "pnl": -0.85,
+   "pnl": -0.9,
    "at": "2026-11-23T03:21Z",
-   "why": "SL 61750 on pump, slippage to 61860"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 1739.86,
    "exit": 1740.11,
    "pnl": -0.1,
    "at": "2026-11-23T03:20Z",
-   "why": "filled above SL 1738 on spike, instant stop"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
-   "entry": null,
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 1718.25,
    "exit": 1713.65,
-   "pnl": 0.1,
+   "pnl": 0.05,
    "at": "2026-11-23T03:04Z",
-   "why": "trailing SL"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 1682.28,
    "exit": 1721.66,
-   "pnl": -1.34,
+   "pnl": -1.35,
    "at": "2026-11-22T09:57Z",
-   "why": "SL (from journal, fees est.)"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 60110.9,
    "exit": 60539.4,
    "pnl": -0.46,
    "at": "2026-11-22T09:50Z",
-   "why": "SL (from journal, fees est.)"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
    "entry": 60207.4,
    "exit": 59390.7,
    "pnl": 0.63,
    "at": "2026-11-22T08:14Z",
-   "why": "trailing SL (from journal, fees est.)"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
-   "entry": 60512.69,
+   "side": "short",
+   "kind": "trend",
+   "version": 3,
+   "entry": 60512.68522727273,
    "exit": 60292.9,
    "pnl": 0.1,
    "at": "2026-11-21T17:13Z",
-   "why": "trailing SL (from journal)"
+   "why": "stop loss"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 59729.7,
    "exit": 59564.0,
-   "pnl": 0.05,
+   "pnl": 0.06,
    "at": "2026-11-21T13:23Z",
-   "why": "breakeven SL (from journal)"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 3,
    "entry": 1651.89,
    "exit": 1677.32,
    "pnl": -0.92,
    "at": "2026-11-21T12:35Z",
-   "why": "SL (from journal)"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 1636.97,
    "exit": 1664.6,
    "pnl": -1.0,
    "at": "2026-11-21T11:32Z",
-   "why": "SL (from journal)"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 1562.62,
    "exit": 1625.51,
    "pnl": -2.25,
    "at": "2026-11-21T06:47Z",
-   "why": "SL on +5% bounce (from journal)"
+   "why": "stop loss"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 1715.08,
    "exit": 1640.55,
    "pnl": 2.22,
    "at": "2026-11-20T16:02Z",
-   "why": "TP hit (from journal)"
+   "why": "take profit"
   },
   {
    "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 61872.7,
    "exit": 60504.5,
-   "pnl": 1.08,
+   "pnl": 1.09,
    "at": "2026-11-20T15:17Z",
-   "why": "TP hit (from journal)"
+   "why": "take profit"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 1753.96,
    "exit": 1730.14,
    "pnl": 0.63,
    "at": "2026-11-20T14:46Z",
-   "why": "TP hit (from journal)"
+   "why": "take profit"
   },
   {
    "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
    "entry": 1752.38,
    "exit": 1751.02,
-   "pnl": -0.06,
+   "pnl": -0.05,
    "at": "2026-11-20T13:49Z",
-   "why": "breakeven SL (from journal)"
+   "why": "stop loss"
+  }
+ ],
+ "changes": [
+  {
+   "version": 6,
+   "at": "2026-11-26T11:58Z",
+   "title": "Гибрид: дневной тренд + казино-ставка",
+   "what": "По итогам ресерча и бэктеста за 2 года. Тренд: BTC и ETH по дневным EMA20/EMA50, широкий стоп 3 ATR(4h), без тейка, стоп подтягивается за ценой, риск 3% счёта на сделку. Плюс раз в неделю одна казино-ставка, которую выбирает ИИ: любая ликвидная крипта, риск 10%, тейк минимум 3x стоп. Проверка раз в 4 часа.",
+   "trades": 0,
+   "wins": 0,
+   "pnl": 0
+  },
+  {
+   "version": 5,
+   "at": "2026-11-23T13:59Z",
+   "title": "Спорный сигнал - не входить",
+   "what": "Если 4h и 1h показывают разное направление, новую позицию не открывать (раньше в таком случае решал 4h-тренд, и бот шортил в отскок).",
+   "trades": 18,
+   "wins": 12,
+   "pnl": 1.62
+  },
+  {
+   "version": 4,
+   "at": "2026-11-21T16:03Z",
+   "title": "Без дневного лимита",
+   "what": "Убран лимит 3 входа в день на монету. Вместо него: после убыточного стопа ждать закрытия часовой свечи, 3 стопа подряд - пауза 4 часа.",
+   "trades": 8,
+   "wins": 2,
+   "pnl": -3.76
+  },
+  {
+   "version": 3,
+   "at": "2026-11-21T10:26Z",
+   "title": "Скользящий стоп",
+   "what": "После 50% пути к тейку стоп идёт за лучшей ценой на расстоянии 1%, тейк снимается. Раньше было: на полпути стоп в безубыток и ждать тейк.",
+   "trades": 2,
+   "wins": 1,
+   "pnl": -0.82
+  },
+  {
+   "version": 2,
+   "at": "2026-11-20T07:52Z",
+   "title": "Режим казино",
+   "what": "Нормальное состояние - быть в позиции. Направление механически: 4h-свеча против EMA50 и цена против 1h EMA20; при споре решает 4h. Стоп за 1h-экстремумом 0.6-4%, тейк 2x стоп. Проверка каждые 30 минут, отчёт на каждой.",
+   "trades": 7,
+   "wins": 4,
+   "pnl": 0.7
+  },
+  {
+   "version": 1,
+   "at": "2026-11-19T18:49Z",
+   "title": "Старт: осторожный трейдер",
+   "what": "BTC и ETH, плечо 3x, маржа до $20, стоп обязателен (до 4%), до 3 входов в день. Входить только при внятном сигнале, «ничего» считалось нормой. Проверка раз в час.",
+   "trades": 0,
+   "wins": 0,
+   "pnl": 0
+  }
+ ],
+ "feed": [
+  {
+   "type": "change",
+   "version": 6,
+   "at": "2026-11-26T11:58Z",
+   "title": "Гибрид: дневной тренд + казино-ставка",
+   "what": "По итогам ресерча и бэктеста за 2 года. Тренд: BTC и ETH по дневным EMA20/EMA50, широкий стоп 3 ATR(4h), без тейка, стоп подтягивается за ценой, риск 3% счёта на сделку. Плюс раз в неделю одна казино-ставка, которую выбирает ИИ: любая ликвидная крипта, риск 10%, тейк минимум 3x стоп. Проверка раз в 4 часа.",
+   "trades": 0,
+   "wins": 0,
+   "pnl": 0
+  },
+  {
+   "type": "change",
+   "version": 5,
+   "at": "2026-11-23T13:59Z",
+   "title": "Спорный сигнал - не входить",
+   "what": "Если 4h и 1h показывают разное направление, новую позицию не открывать (раньше в таком случае решал 4h-тренд, и бот шортил в отскок).",
+   "trades": 18,
+   "wins": 12,
+   "pnl": 1.62
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1646.74,
+   "exit": 1674.18,
+   "pnl": -0.96,
+   "at": "2026-11-25T17:40Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 58172.8,
+   "exit": 59503.8,
+   "pnl": -1.1,
+   "at": "2026-11-25T17:16Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1645.44,
+   "exit": 1658.62,
+   "pnl": -0.48,
+   "at": "2026-11-25T15:01Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1647.95,
+   "exit": 1642.5,
+   "pnl": 0.08,
+   "at": "2026-11-25T14:58Z",
+   "why": "closed by the bot"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 59207.8,
+   "exit": 58104.7,
+   "pnl": 0.87,
+   "at": "2026-11-25T14:58Z",
+   "why": "closed by the bot"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1664.53,
+   "exit": 1650.93,
+   "pnl": 0.33,
+   "at": "2026-11-25T08:30Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 59450.7,
+   "exit": 59264.0,
+   "pnl": 0.07,
+   "at": "2026-11-25T08:30Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 60256.3,
+   "exit": 59553.5,
+   "pnl": 0.52,
+   "at": "2026-11-25T03:20Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1684.06,
+   "exit": 1665.88,
+   "pnl": 0.47,
+   "at": "2026-11-25T03:19Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1690.57,
+   "exit": 1681.22,
+   "pnl": 0.2,
+   "at": "2026-11-24T17:11Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 61572.08571428571,
+   "exit": 60187.9,
+   "pnl": 1.08,
+   "at": "2026-11-24T03:29Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1716.72,
+   "exit": 1685.76,
+   "pnl": 0.84,
+   "at": "2026-11-24T03:27Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1727.34,
+   "exit": 1719.44,
+   "pnl": 0.14,
+   "at": "2026-11-24T01:10Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1737.32,
+   "exit": 1732.69,
+   "pnl": 0.05,
+   "at": "2026-11-23T20:00Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1770.39,
+   "exit": 1757.08,
+   "pnl": -0.48,
+   "at": "2026-11-23T16:41Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1780.11,
+   "exit": 1766.49,
+   "pnl": -0.49,
+   "at": "2026-11-23T15:46Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1798.67,
+   "exit": 1779.82,
+   "pnl": -0.64,
+   "at": "2026-11-23T14:48Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "long",
+   "kind": "trend",
+   "version": 5,
+   "entry": 1800.68,
+   "exit": 1842.85,
+   "pnl": 1.12,
+   "at": "2026-11-23T14:26Z",
+   "why": "take profit"
+  },
+  {
+   "type": "change",
+   "version": 4,
+   "at": "2026-11-21T16:03Z",
+   "title": "Без дневного лимита",
+   "what": "Убран лимит 3 входа в день на монету. Вместо него: после убыточного стопа ждать закрытия часовой свечи, 3 стопа подряд - пауза 4 часа.",
+   "trades": 8,
+   "wins": 2,
+   "pnl": -3.76
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 1734.83,
+   "exit": 1763.4,
+   "pnl": -0.95,
+   "at": "2026-11-23T13:56Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 61429.5,
+   "exit": 62133.6,
+   "pnl": -0.68,
+   "at": "2026-11-23T13:56Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 60905.0,
+   "exit": 61860.2,
+   "pnl": -0.9,
+   "at": "2026-11-23T03:21Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 1739.86,
+   "exit": 1740.11,
+   "pnl": -0.1,
+   "at": "2026-11-23T03:20Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 1718.25,
+   "exit": 1713.65,
+   "pnl": 0.05,
+   "at": "2026-11-23T03:04Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 1682.28,
+   "exit": 1721.66,
+   "pnl": -1.35,
+   "at": "2026-11-22T09:57Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 60110.9,
+   "exit": 60539.4,
+   "pnl": -0.46,
+   "at": "2026-11-22T09:50Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 4,
+   "entry": 60207.4,
+   "exit": 59390.7,
+   "pnl": 0.63,
+   "at": "2026-11-22T08:14Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "change",
+   "version": 3,
+   "at": "2026-11-21T10:26Z",
+   "title": "Скользящий стоп",
+   "what": "После 50% пути к тейку стоп идёт за лучшей ценой на расстоянии 1%, тейк снимается. Раньше было: на полпути стоп в безубыток и ждать тейк.",
+   "trades": 2,
+   "wins": 1,
+   "pnl": -0.82
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 3,
+   "entry": 60512.68522727273,
+   "exit": 60292.9,
+   "pnl": 0.1,
+   "at": "2026-11-21T17:13Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 3,
+   "entry": 1651.89,
+   "exit": 1677.32,
+   "pnl": -0.92,
+   "at": "2026-11-21T12:35Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "change",
+   "version": 2,
+   "at": "2026-11-20T07:52Z",
+   "title": "Режим казино",
+   "what": "Нормальное состояние - быть в позиции. Направление механически: 4h-свеча против EMA50 и цена против 1h EMA20; при споре решает 4h. Стоп за 1h-экстремумом 0.6-4%, тейк 2x стоп. Проверка каждые 30 минут, отчёт на каждой.",
+   "trades": 7,
+   "wins": 4,
+   "pnl": 0.7
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 59729.7,
+   "exit": 59564.0,
+   "pnl": 0.06,
+   "at": "2026-11-21T13:23Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 1636.97,
+   "exit": 1664.6,
+   "pnl": -1.0,
+   "at": "2026-11-21T11:32Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 1562.62,
+   "exit": 1625.51,
+   "pnl": -2.25,
+   "at": "2026-11-21T06:47Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 1715.08,
+   "exit": 1640.55,
+   "pnl": 2.22,
+   "at": "2026-11-20T16:02Z",
+   "why": "take profit"
+  },
+  {
+   "type": "trade",
+   "coin": "BTC",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 61872.7,
+   "exit": 60504.5,
+   "pnl": 1.09,
+   "at": "2026-11-20T15:17Z",
+   "why": "take profit"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 1753.96,
+   "exit": 1730.14,
+   "pnl": 0.63,
+   "at": "2026-11-20T14:46Z",
+   "why": "take profit"
+  },
+  {
+   "type": "trade",
+   "coin": "ETH",
+   "side": "short",
+   "kind": "trend",
+   "version": 2,
+   "entry": 1752.38,
+   "exit": 1751.02,
+   "pnl": -0.05,
+   "at": "2026-11-20T13:49Z",
+   "why": "stop loss"
+  },
+  {
+   "type": "change",
+   "version": 1,
+   "at": "2026-11-19T18:49Z",
+   "title": "Старт: осторожный трейдер",
+   "what": "BTC и ETH, плечо 3x, маржа до $20, стоп обязателен (до 4%), до 3 входов в день. Входить только при внятном сигнале, «ничего» считалось нормой. Проверка раз в час.",
+   "trades": 0,
+   "wins": 0,
+   "pnl": 0
   }
  ]
 }
