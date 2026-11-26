@@ -38,7 +38,8 @@ def ledger_trades(ledger):
     """ledger = walt-trader/trades.json (tools/ledger.py); open trades are left out (they are in positions)."""
     out = [{"coin": t["coin"], "side": t["side"], "kind": t["kind"], "version": t["version"] or 0,
             "entry": t["entry"], "exit": t["exit"], "pnl": round(t["net"], 2), "at": t["closed"],
-            "why": WHY.get(t["why"], t["why"])} for t in ledger if t["net"] is not None]
+            "why": WHY.get(t["why"], t["why"]), "thesis": t.get("thesis"), "invalidation": t.get("invalidation")}
+           for t in ledger if t["net"] is not None]
     return sorted(out, key=lambda t: t["at"], reverse=True)
 
 
@@ -67,12 +68,21 @@ def merge(history, fresh):
     return sorted(by.values(), key=lambda t: t["at"], reverse=True)
 
 
-def positions(raw):
-    # shortcut: position shape is unknown (none open so far); list form so the dashboard can type and replicate it
+def positions(raw, ledger=None, casino=None):
+    """state.json positions as a list; a casino bet's thesis and invalidation come from its open ledger trade,
+    else from state.json's casino (the week's bet)."""
     def pick(v, *keys):
         return next((v[k] for k in keys if isinstance(v, dict) and v.get(k) is not None), None)
-    return [{"coin": k, "side": str(pick(v, "side", "direction") or ""),
-             "entry": pick(v, "entry", "entry_price", "entryPrice")} for k, v in (raw or {}).items()]
+    open_ = {t["coin"]: t for t in ledger or () if t["net"] is None}
+    out = []
+    for k, v in (raw or {}).items():
+        kind = str(pick(v, "kind") or pick(open_.get(k), "kind") or "trend")
+        bet = [x for x in (open_.get(k), casino) if kind == "casino" and isinstance(x, dict) and x.get("coin", k) == k]
+        out.append({"coin": k, "side": str(pick(v, "side", "direction") or ""), "kind": kind,
+                    "entry": pick(v, "entry", "entry_price", "entryPrice"), "sl": pick(v, "sl"), "tp": pick(v, "tp"),
+                    "thesis": pick(next((x for x in bet if x.get("thesis")), None), "thesis"),
+                    "invalidation": pick(next((x for x in bet if x.get("invalidation")), None), "invalidation")})
+    return out
 
 
 def build(state, journal, history=(), ledger=None, chs=()):
@@ -83,7 +93,7 @@ def build(state, journal, history=(), ledger=None, chs=()):
     cs = changes(chs, trs)
     return {"status": state.get("status", "?"), "startEquity": state.get("start_equity", 50),
             "lastCheck": state.get("last_check", ""), "prices": state.get("last_prices", {}),
-            "positions": positions(state.get("positions")), "equity": equity_points(journal),
+            "positions": positions(state.get("positions"), ledger, state.get("casino")), "equity": equity_points(journal),
             "trades": trs, "changes": cs, "feed": feed(trs, cs)}
 
 
@@ -118,8 +128,21 @@ def check():
     assert [(c["version"], c["trades"], c["pnl"]) for c in d["changes"]] == [(2, 1, -0.5), (1, 1, 0.1)], d["changes"]
     # timeline: the v1 trade closed at the v2 change's minute but stays below the v2 row, above its own v1 row
     assert [(x["type"], x["version"]) for x in d["feed"]] == [("trade", 2), ("change", 2), ("trade", 1), ("change", 1)], d["feed"]
-    assert positions({"BTC": {"side": "short", "entry": 61000}}) == [{"coin": "BTC", "side": "short", "entry": 61000}]
-    assert positions({"ETH": {"direction": "long", "entry_price": 1700}}) == [{"coin": "ETH", "side": "long", "entry": 1700}]
+    assert d["trades"][1]["thesis"] is None and "invalidation" in d["trades"][1], d["trades"]
+    bet = ledger_trades([{**led[0], "kind": "casino", "thesis": "ставка", "invalidation": "если"}])[0]
+    assert (bet["kind"], bet["thesis"], bet["invalidation"]) == ("casino", "ставка", "если"), bet
+    none = {"sl": None, "tp": None, "thesis": None, "invalidation": None}
+    assert positions({"BTC": {"side": "short", "entry": 61000}}) == [{"coin": "BTC", "side": "short", "kind": "trend", "entry": 61000, **none}]
+    assert positions({"ETH": {"direction": "long", "entry_price": 1700}}) == [{"coin": "ETH", "side": "long", "kind": "trend", "entry": 1700, **none}]
+    # a casino bet: thesis from the open ledger trade first, then from state.casino; trend positions get none
+    led[2].update(thesis="SOL растёт", invalidation=None)
+    raw = {"SOL": {"side": "long", "entry": 2, "sl": 1.8, "tp": 2.6, "kind": "casino"}, "BTC": {"side": "short", "entry": 9, "sl": 10, "kind": "trend"}}
+    cas = {"coin": "SOL", "thesis": "старый тезис", "invalidation": "ниже 1.8"}
+    p = positions(raw, led, cas)
+    assert p[0] == {"coin": "SOL", "side": "long", "kind": "casino", "entry": 2, "sl": 1.8, "tp": 2.6,
+                    "thesis": "SOL растёт", "invalidation": "ниже 1.8"}, p
+    assert p[1]["kind"] == "trend" and p[1]["sl"] == 10 and p[1]["thesis"] is None, p
+    assert positions(raw, [], {**cas, "coin": "DOGE"})[0]["thesis"] is None  # the week's bet is on another coin
     print("check ok")
 
 

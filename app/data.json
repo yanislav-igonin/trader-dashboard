@@ -10,12 +10,22 @@
   {
    "coin": "BTC",
    "side": "short",
-   "entry": 60795.7
+   "kind": "trend",
+   "entry": 60795.7,
+   "sl": 64326.6,
+   "tp": null,
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
    "side": "short",
-   "entry": 1704.93
+   "kind": "trend",
+   "entry": 1704.93,
+   "sl": 1813.55,
+   "tp": null,
+   "thesis": null,
+   "invalidation": null
   }
  ],
  "equity": [
@@ -1126,7 +1136,9 @@
    "exit": 1674.18,
    "pnl": -0.96,
    "at": "2026-11-25T17:40Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1137,7 +1149,9 @@
    "exit": 59503.8,
    "pnl": -1.1,
    "at": "2026-11-25T17:16Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1148,7 +1162,9 @@
    "exit": 1658.62,
    "pnl": -0.48,
    "at": "2026-11-25T15:01Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1159,7 +1175,9 @@
    "exit": 1642.5,
    "pnl": 0.08,
    "at": "2026-11-25T14:58Z",
-   "why": "closed by the bot"
+   "why": "closed by the bot",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1170,7 +1188,9 @@
    "exit": 58104.7,
    "pnl": 0.87,
    "at": "2026-11-25T14:58Z",
-   "why": "closed by the bot"
+   "why": "closed by the bot",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1181,7 +1201,9 @@
    "exit": 1650.93,
    "pnl": 0.33,
    "at": "2026-11-25T08:30Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1192,7 +1214,9 @@
    "exit": 59264.0,
    "pnl": 0.07,
    "at": "2026-11-25T08:30Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1203,7 +1227,9 @@
    "exit": 59553.5,
    "pnl": 0.52,
    "at": "2026-11-25T03:20Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1214,7 +1240,9 @@
    "exit": 1665.88,
    "pnl": 0.47,
    "at": "2026-11-25T03:19Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1225,7 +1253,9 @@
    "exit": 1681.22,
    "pnl": 0.2,
    "at": "2026-11-24T17:11Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1236,7 +1266,9 @@
    "exit": 60187.9,
    "pnl": 1.08,
    "at": "2026-11-24T03:29Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1247,7 +1279,9 @@
    "exit": 1685.76,
    "pnl": 0.84,
    "at": "2026-11-24T03:27Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1258,7 +1292,9 @@
    "exit": 1719.44,
    "pnl": 0.14,
    "at": "2026-11-24T01:10Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1269,7 +1305,9 @@
    "exit": 1732.69,
    "pnl": 0.05,
    "at": "2026-11-23T20:00Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1280,7 +1318,9 @@
    "exit": 1757.08,
    "pnl": -0.48,
    "at": "2026-11-23T16:41Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1291,7 +1331,9 @@
    "exit": 1766.49,
    "pnl": -0.49,
    "at": "2026-11-23T15:46Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1302,7 +1344,9 @@
    "exit": 1779.82,
    "pnl": -0.64,
    "at": "2026-11-23T14:48Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1313,7 +1357,9 @@
    "exit": 1842.85,
    "pnl": 1.12,
    "at": "2026-11-23T14:26Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1324,7 +1370,9 @@
    "exit": 1763.4,
    "pnl": -0.95,
    "at": "2026-11-23T13:56Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1335,7 +1383,9 @@
    "exit": 62133.6,
    "pnl": -0.68,
    "at": "2026-11-23T13:56Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1346,7 +1396,9 @@
    "exit": 61860.2,
    "pnl": -0.9,
    "at": "2026-11-23T03:21Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1357,7 +1409,9 @@
    "exit": 1740.11,
    "pnl": -0.1,
    "at": "2026-11-23T03:20Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1368,7 +1422,9 @@
    "exit": 1713.65,
    "pnl": 0.05,
    "at": "2026-11-23T03:04Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1379,7 +1435,9 @@
    "exit": 1721.66,
    "pnl": -1.35,
    "at": "2026-11-22T09:57Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1390,7 +1448,9 @@
    "exit": 60539.4,
    "pnl": -0.46,
    "at": "2026-11-22T09:50Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1401,7 +1461,9 @@
    "exit": 59390.7,
    "pnl": 0.63,
    "at": "2026-11-22T08:14Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1412,7 +1474,9 @@
    "exit": 60292.9,
    "pnl": 0.1,
    "at": "2026-11-21T17:13Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1423,7 +1487,9 @@
    "exit": 59564.0,
    "pnl": 0.06,
    "at": "2026-11-21T13:23Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1434,7 +1500,9 @@
    "exit": 1677.32,
    "pnl": -0.92,
    "at": "2026-11-21T12:35Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1445,7 +1513,9 @@
    "exit": 1664.6,
    "pnl": -1.0,
    "at": "2026-11-21T11:32Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1456,7 +1526,9 @@
    "exit": 1625.51,
    "pnl": -2.25,
    "at": "2026-11-21T06:47Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1467,7 +1539,9 @@
    "exit": 1640.55,
    "pnl": 2.22,
    "at": "2026-11-20T16:02Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "BTC",
@@ -1478,7 +1552,9 @@
    "exit": 60504.5,
    "pnl": 1.09,
    "at": "2026-11-20T15:17Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1489,7 +1565,9 @@
    "exit": 1730.14,
    "pnl": 0.63,
    "at": "2026-11-20T14:46Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "coin": "ETH",
@@ -1500,7 +1578,9 @@
    "exit": 1751.02,
    "pnl": -0.05,
    "at": "2026-11-20T13:49Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   }
  ],
  "changes": [
@@ -1599,7 +1679,9 @@
    "exit": 1674.18,
    "pnl": -0.96,
    "at": "2026-11-25T17:40Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1611,7 +1693,9 @@
    "exit": 59503.8,
    "pnl": -1.1,
    "at": "2026-11-25T17:16Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1623,7 +1707,9 @@
    "exit": 1658.62,
    "pnl": -0.48,
    "at": "2026-11-25T15:01Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1635,7 +1721,9 @@
    "exit": 1642.5,
    "pnl": 0.08,
    "at": "2026-11-25T14:58Z",
-   "why": "closed by the bot"
+   "why": "closed by the bot",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1647,7 +1735,9 @@
    "exit": 58104.7,
    "pnl": 0.87,
    "at": "2026-11-25T14:58Z",
-   "why": "closed by the bot"
+   "why": "closed by the bot",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1659,7 +1749,9 @@
    "exit": 1650.93,
    "pnl": 0.33,
    "at": "2026-11-25T08:30Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1671,7 +1763,9 @@
    "exit": 59264.0,
    "pnl": 0.07,
    "at": "2026-11-25T08:30Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1683,7 +1777,9 @@
    "exit": 59553.5,
    "pnl": 0.52,
    "at": "2026-11-25T03:20Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1695,7 +1791,9 @@
    "exit": 1665.88,
    "pnl": 0.47,
    "at": "2026-11-25T03:19Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1707,7 +1805,9 @@
    "exit": 1681.22,
    "pnl": 0.2,
    "at": "2026-11-24T17:11Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1719,7 +1819,9 @@
    "exit": 60187.9,
    "pnl": 1.08,
    "at": "2026-11-24T03:29Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1731,7 +1833,9 @@
    "exit": 1685.76,
    "pnl": 0.84,
    "at": "2026-11-24T03:27Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1743,7 +1847,9 @@
    "exit": 1719.44,
    "pnl": 0.14,
    "at": "2026-11-24T01:10Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1755,7 +1861,9 @@
    "exit": 1732.69,
    "pnl": 0.05,
    "at": "2026-11-23T20:00Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1767,7 +1875,9 @@
    "exit": 1757.08,
    "pnl": -0.48,
    "at": "2026-11-23T16:41Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1779,7 +1889,9 @@
    "exit": 1766.49,
    "pnl": -0.49,
    "at": "2026-11-23T15:46Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1791,7 +1903,9 @@
    "exit": 1779.82,
    "pnl": -0.64,
    "at": "2026-11-23T14:48Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1803,7 +1917,9 @@
    "exit": 1842.85,
    "pnl": 1.12,
    "at": "2026-11-23T14:26Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "change",
@@ -1825,7 +1941,9 @@
    "exit": 1763.4,
    "pnl": -0.95,
    "at": "2026-11-23T13:56Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1837,7 +1955,9 @@
    "exit": 62133.6,
    "pnl": -0.68,
    "at": "2026-11-23T13:56Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1849,7 +1969,9 @@
    "exit": 61860.2,
    "pnl": -0.9,
    "at": "2026-11-23T03:21Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1861,7 +1983,9 @@
    "exit": 1740.11,
    "pnl": -0.1,
    "at": "2026-11-23T03:20Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1873,7 +1997,9 @@
    "exit": 1713.65,
    "pnl": 0.05,
    "at": "2026-11-23T03:04Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1885,7 +2011,9 @@
    "exit": 1721.66,
    "pnl": -1.35,
    "at": "2026-11-22T09:57Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1897,7 +2025,9 @@
    "exit": 60539.4,
    "pnl": -0.46,
    "at": "2026-11-22T09:50Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1909,7 +2039,9 @@
    "exit": 59390.7,
    "pnl": 0.63,
    "at": "2026-11-22T08:14Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "change",
@@ -1931,7 +2063,9 @@
    "exit": 60292.9,
    "pnl": 0.1,
    "at": "2026-11-21T17:13Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1943,7 +2077,9 @@
    "exit": 1677.32,
    "pnl": -0.92,
    "at": "2026-11-21T12:35Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "change",
@@ -1965,7 +2101,9 @@
    "exit": 59564.0,
    "pnl": 0.06,
    "at": "2026-11-21T13:23Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1977,7 +2115,9 @@
    "exit": 1664.6,
    "pnl": -1.0,
    "at": "2026-11-21T11:32Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -1989,7 +2129,9 @@
    "exit": 1625.51,
    "pnl": -2.25,
    "at": "2026-11-21T06:47Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -2001,7 +2143,9 @@
    "exit": 1640.55,
    "pnl": 2.22,
    "at": "2026-11-20T16:02Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -2013,7 +2157,9 @@
    "exit": 60504.5,
    "pnl": 1.09,
    "at": "2026-11-20T15:17Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -2025,7 +2171,9 @@
    "exit": 1730.14,
    "pnl": 0.63,
    "at": "2026-11-20T14:46Z",
-   "why": "take profit"
+   "why": "take profit",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "trade",
@@ -2037,7 +2185,9 @@
    "exit": 1751.02,
    "pnl": -0.05,
    "at": "2026-11-20T13:49Z",
-   "why": "stop loss"
+   "why": "stop loss",
+   "thesis": null,
+   "invalidation": null
   },
   {
    "type": "change",
