@@ -216,7 +216,7 @@ App [ appName = "AI Trader", minWidth = 320,
             Tile [ flexes = true, label = "ETH", value = { price(app.src.value?.prices.ETH ?? 0) }, note = "last price" ],
             Tile [ flexes = true, label = "Trades", value = { "" + app.trades.length },
                 note = { app.wins + " wins / " + app.losses + " losses" } ],
-            Tile [ flexes = true, label = "Sum PnL", value = { signed(app.pnlSum) }, note = "logged trades, net of fees",
+            Tile [ flexes = true, label = "Sum PnL", value = { signed(app.pnlSum) }, note = "all closed trades, net of fees",
                 tone = { app.pnlSum < 0 ? provided("theme").down : provided("theme").up } ]
             ],
 

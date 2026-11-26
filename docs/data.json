@@ -1281,6 +1281,102 @@
    "pnl": 0.1,
    "at": "2026-11-23T03:04Z",
    "why": "trailing SL"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1682.28,
+   "exit": 1721.66,
+   "pnl": -1.34,
+   "at": "2026-11-22T09:57Z",
+   "why": "SL (from journal, fees est.)"
+  },
+  {
+   "coin": "BTC",
+   "entry": 60110.9,
+   "exit": 60539.4,
+   "pnl": -0.46,
+   "at": "2026-11-22T09:50Z",
+   "why": "SL (from journal, fees est.)"
+  },
+  {
+   "coin": "BTC",
+   "entry": 60207.4,
+   "exit": 59390.7,
+   "pnl": 0.63,
+   "at": "2026-11-22T08:14Z",
+   "why": "trailing SL (from journal, fees est.)"
+  },
+  {
+   "coin": "BTC",
+   "entry": 60512.69,
+   "exit": 60292.9,
+   "pnl": 0.1,
+   "at": "2026-11-21T17:13Z",
+   "why": "trailing SL (from journal)"
+  },
+  {
+   "coin": "BTC",
+   "entry": 59729.7,
+   "exit": 59564.0,
+   "pnl": 0.05,
+   "at": "2026-11-21T13:23Z",
+   "why": "breakeven SL (from journal)"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1651.89,
+   "exit": 1677.32,
+   "pnl": -0.92,
+   "at": "2026-11-21T12:35Z",
+   "why": "SL (from journal)"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1636.97,
+   "exit": 1664.6,
+   "pnl": -1.0,
+   "at": "2026-11-21T11:32Z",
+   "why": "SL (from journal)"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1562.62,
+   "exit": 1625.51,
+   "pnl": -2.25,
+   "at": "2026-11-21T06:47Z",
+   "why": "SL on +5% bounce (from journal)"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1715.08,
+   "exit": 1640.55,
+   "pnl": 2.22,
+   "at": "2026-11-20T16:02Z",
+   "why": "TP hit (from journal)"
+  },
+  {
+   "coin": "BTC",
+   "entry": 61872.7,
+   "exit": 60504.5,
+   "pnl": 1.08,
+   "at": "2026-11-20T15:17Z",
+   "why": "TP hit (from journal)"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1753.96,
+   "exit": 1730.14,
+   "pnl": 0.63,
+   "at": "2026-11-20T14:46Z",
+   "why": "TP hit (from journal)"
+  },
+  {
+   "coin": "ETH",
+   "entry": 1752.38,
+   "exit": 1751.02,
+   "pnl": -0.06,
+   "at": "2026-11-20T13:49Z",
+   "why": "breakeven SL (from journal)"
   }
  ]
 }

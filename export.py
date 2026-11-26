@@ -7,6 +7,8 @@ from pathlib import Path
 
 SRC = Path.home() / "Documents/Private/walt-trader"
 OUT = Path(__file__).with_name("app") / "data.json"
+# every closed trade ever seen: state.json keeps only a tail, so trades accumulate here (seeded from the journal)
+HISTORY = Path(__file__).with_name("history.json")
 LINE = re.compile(r"^- (\d{4}-\d{2}-\d{2}) (\d{2}:\d{2}) UTC\b")
 EQUITY = re.compile(r"Equity[^0-9\n]{0,25}?(\d+(?:\.\d+)?)")
 
@@ -22,10 +24,18 @@ def equity_points(text):
 
 
 def trades(last_closed):
-    out = [{"coin": coin, "entry": t.get("entry"), "exit": t.get("exit"),
+    out = [{"order": t.get("order"), "coin": coin, "entry": t.get("entry"), "exit": t.get("exit"),
             "pnl": t.get("pnl_net", t.get("pnl", 0)), "at": t.get("at", ""), "why": t.get("why", "")}
            for coin, ts in (last_closed or {}).items() for t in ts]
     return sorted(out, key=lambda t: t["at"], reverse=True)
+
+
+def merge(history, fresh):
+    """History plus the trades state.json shows now, one per order (or coin+time), newest first."""
+    key = lambda t: t.get("order") or f"{t['coin']}@{t['at']}"
+    by = {key(t): t for t in history}
+    by.update((key(t), t) for t in fresh)
+    return sorted(by.values(), key=lambda t: t["at"], reverse=True)
 
 
 def positions(raw):
@@ -36,11 +46,12 @@ def positions(raw):
              "entry": pick(v, "entry", "entry_price", "entryPrice")} for k, v in (raw or {}).items()]
 
 
-def build(state, journal):
+def build(state, journal, history=()):
     return {"status": state.get("status", "?"), "startEquity": state.get("start_equity", 50),
             "lastCheck": state.get("last_check", ""), "prices": state.get("last_prices", {}),
             "positions": positions(state.get("positions")), "equity": equity_points(journal),
-            "trades": trades(state.get("last_closed"))}
+            "trades": [{k: v for k, v in t.items() if k != "order"}
+                       for t in merge(history, trades(state.get("last_closed")))]}
 
 
 def check():
@@ -53,6 +64,10 @@ def check():
     t = trades({"ETH": [{"exit": 1, "pnl_net": 0.1, "at": "2026-11-23T03:04Z", "why": "a"}],
                 "BTC": [{"entry": 2, "exit": 3, "pnl": -0.5, "at": "2026-11-24T00:00Z", "why": "b"}]})
     assert [x["coin"] for x in t] == ["BTC", "ETH"] and t[0]["pnl"] == -0.5 and t[1]["entry"] is None, t
+    old = [{"coin": "ETH", "at": "2026-11-20T13:49Z", "pnl": -0.06, "why": "x"}, {"order": "o1", "coin": "BTC", "at": "2026-11-23T00:00Z", "pnl": 1, "why": "old"}]
+    m = merge(old, [{"order": "o1", "coin": "BTC", "at": "2026-11-23T00:00Z", "pnl": 1, "why": "new"}, {"order": "o2", "coin": "ETH", "at": "2026-11-24T00:00Z", "pnl": 2, "why": "y"}])
+    assert [t["why"] for t in m] == ["y", "new", "x"], m
+    assert build({}, "", old)["trades"][0] == {"coin": "BTC", "at": "2026-11-23T00:00Z", "pnl": 1, "why": "old"}
     d = build({"status": "ACTIVE"}, "")
     assert d["startEquity"] == 50 and d["trades"] == [] and d["equity"] == [] and d["positions"] == []
     assert positions({"BTC": {"side": "short", "entry": 61000}}) == [{"coin": "BTC", "side": "short", "entry": 61000}]
@@ -64,7 +79,10 @@ if __name__ == "__main__":
     if "--check" in sys.argv:
         check()
     else:
-        d = build(json.loads((SRC / "state.json").read_text()), (SRC / "journal.md").read_text())
+        state = json.loads((SRC / "state.json").read_text())
+        history = merge(json.loads(HISTORY.read_text()) if HISTORY.exists() else [], trades(state.get("last_closed")))
+        HISTORY.write_text(json.dumps(history, ensure_ascii=False, indent=1))
+        d = build(state, (SRC / "journal.md").read_text(), history)
         out = Path(sys.argv[1]) if len(sys.argv) > 1 else OUT
         out.write_text(json.dumps(d, ensure_ascii=False, indent=1))
         print(f"wrote {out}: {len(d['equity'])} equity points, {len(d['trades'])} trades")
