@@ -1,12 +1,23 @@
 {
  "status": "ACTIVE",
  "startEquity": 50,
- "lastCheck": "2026-11-26T11:42Z",
+ "lastCheck": "2026-11-26T12:07Z",
  "prices": {
-  "BTC": 60729.5,
-  "ETH": 1700.8
+  "BTC": 60797.1,
+  "ETH": 1705.46
  },
- "positions": [],
+ "positions": [
+  {
+   "coin": "BTC",
+   "side": "short",
+   "entry": 60795.7
+  },
+  {
+   "coin": "ETH",
+   "side": "short",
+   "entry": 1704.93
+  }
+ ],
  "equity": [
   {
    "t": "2026-11-19T18:49Z",
@@ -1099,6 +1110,10 @@
   {
    "t": "2026-11-26T11:42Z",
    "v": 47.76
+  },
+  {
+   "t": "2026-11-26T12:07Z",
+   "v": 47.72
   }
  ],
  "trades": [
