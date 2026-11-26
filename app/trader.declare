@@ -3,7 +3,9 @@
 
 A public, read-only dashboard for the walt trading bot: equity against the $50 start,
 the bot's status, last prices, open positions, the equity curve from the
-journal with the start and the $35 kill switch drawn in, and the closed trades.
+journal with the start, the $35 kill switch and each rules change drawn in, and
+a feed of the closed trades grouped under the rules change they were opened
+under, so each change shows what came after it.
 
 `data.json` beside this file is written by `../export.py` from the bot's
 `state.json` and `journal.md`; this program only reads it.
@@ -38,11 +40,19 @@ script [ host = browser ] {
 // ── The shape of data.json
 
 schema Point [ t: string, v: number ]
-schema Trade [ coin: string, entry?: number, exit?: number, pnl: number, at: string, why: string ]
+schema Trade [ coin: string, side: string, kind: string, version: number,
+    entry?: number, exit?: number, pnl: number, at: string, why: string ]
+schema Change [ version: number, at: string, title: string, what: string, trades: number, wins: number, pnl: number ]
+
+// One feed entry: a change or a trade, so every field either kind has, optional.
+
+schema FeedItem [ type: "trade" | "change", version: number, at: string, pnl: number,
+    coin?: string, side?: string, kind?: string, entry?: number, exit?: number, why?: string,
+    title?: string, what?: string, trades?: number, wins?: number ]
 schema Position [ coin: string, side: string, entry?: number ]
 schema Prices [ BTC: number, ETH: number ]
 schema Walt [ status: string, startEquity: number, lastCheck: string, prices: Prices,
-    positions[]: Position, equity[]: Point, trades[]: Trade ]
+    positions[]: Position, equity[]: Point, trades[]: Trade, changes[]: Change, feed[]: FeedItem ]
 
 // ── Colors, over the library's dark and light presets
 
@@ -78,6 +88,7 @@ class EquityChart [
     pts: Point[] = [],
     start: number = 50,
     kill: number = 35,
+    marks: Change[] = [],
     accessibilityRole = image, accessibilityLabel = "Equity over time",
     draw(d: DrawContext) {
         const th = provided("theme")
@@ -107,6 +118,17 @@ class EquityChart [
         }
         d.setLineDash([])
 
+        // each rules change inside the range: a faint line, its version at the top
+        d.fillStyle = th.textFaint
+        d.textAlign = "left"; d.textBaseline = "top"
+        for (const c of this.marks) {
+            const t = Date.parse(c.at)
+            if (t < t0 || t > t1) continue
+            d.strokeStyle = Color.withAlpha(th.textFaint, 0.35)
+            d.beginPath(); d.moveTo(X(t), top); d.lineTo(X(t), h - bottom); d.stroke()
+            d.fillText("v" + c.version, X(t) + 3, top)
+        }
+
         // the curve, and a dot at now
         d.strokeStyle = th.curve
         d.lineWidth = 1.8
@@ -127,19 +149,62 @@ class EquityChart [
     ]
 
 
-// A closed trade: the coin, why it closed and when, and what it made.
+// A line of the feed; `classFor` (on the feed, below) picks the kind.
 
-class TradeRow [ width = 100%, padding = [8, 0, 8, 0],
+class FeedRow [ width = 100%,
+    tone: Color = { :pnl < 0 ? provided("theme").down : :pnl > 0 ? provided("theme").up : provided("theme").textMuted }
+    ]
+
+
+// A closed trade: the coin and side, why it closed and when, and what it made.
+
+class TradeRow extends FeedRow [ padding = [8, 0, 8, 0],
     stroke = { [Stroke(1, provided("theme").line), null, null, null] },
     layout: SimpleLayout [ axis = x, spacing = 10 ],
-    Text [ width = 40, fontWeight = semibold, text = :coin ],
+    View [ width = 44,
+        layout: SimpleLayout [ axis = y, spacing = 2 ],
+        Text [ fontWeight = semibold, text = { :coin ?? "" } ],
+        Text [ fontSize = 12, textColor = { provided("theme").textMuted }, text = { :side ?? "" } ]
+        ],
     View [ flexes = true,
         layout: SimpleLayout [ axis = y, spacing = 2 ],
-        Text [ width = 100%, fontSize = 13, text = :why ],
+        View [ width = 100%,
+            layout: SimpleLayout [ axis = x, spacing = 6, align = center ],
+            Text [ flexes = true, fontSize = 13, text = { :why ?? "" } ],
+            casino: View [ visible = { :kind == "casino" }, cornerRadius = 6, padding = [1, 6, 1, 6],
+                fill = { Color.withAlpha(provided("theme").curve, 0.16) },
+                Text [ fontSize = 11, fontWeight = semibold, textColor = { provided("theme").curve }, text = "casino" ]
+                ]
+            ],
         Text [ fontSize = 12, textColor = { provided("theme").textMuted }, text = { when(:at) + " UTC" } ]
         ],
-    Text [ fontWeight = semibold, text = { signed(:pnl) },
-        textColor = { :pnl < 0 ? provided("theme").down : provided("theme").up } ]
+    Text [ fontWeight = semibold, text = { signed(:pnl) }, textColor = { classroot.tone } ]
+    ]
+
+
+// A rules change: its version, what changed (Russian, from the bot's notes),
+// and how the trades opened under it did, tinted by their sum.
+
+class ChangeRow extends FeedRow [ padding = 12, cornerRadius = 10,
+    count: number = { :trades ?? 0 },
+    fill = { Color.withAlpha(classroot.tone, 0.10) },
+    stroke = { Stroke(1, Color.withAlpha(classroot.tone, 0.35)) },
+    layout: SimpleLayout [ axis = y, spacing = 6 ],
+    head: View [ width = 100%,
+        layout: SimpleLayout [ axis = x, spacing = 8, align = center ],
+        View [ cornerRadius = 6, padding = [2, 7, 2, 7], fill = { classroot.tone },
+            Text [ fontSize = 12, fontWeight = bold, textColor = { provided("theme").surface }, text = { "v" + :version } ]
+            ],
+        Text [ flexes = true, fontWeight = semibold, text = { :title ?? "" } ]
+        ],
+    Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted }, text = { :what ?? "" } ],
+    View [ width = 100%,
+        layout: SimpleLayout [ axis = x, spacing = 8, align = baseline ],
+        Text [ flexes = true, fontSize = 12, textColor = { provided("theme").textMuted }, text = { "Rules changed " + when(:at) + " UTC" } ],
+        Text [ fontSize = 13, fontWeight = semibold, textColor = { classroot.tone },
+            text = { classroot.count == 0 ? "no trades yet"
+                : classroot.count + (classroot.count == 1 ? " trade, " : " trades, ") + (:wins ?? 0) + ((:wins ?? 0) == 1 ? " win, " : " wins, ") + signed(:pnl) } ]
+        ]
     ]
 
 
@@ -229,13 +294,13 @@ App [ appName = "AI Trader", minWidth = 320,
         chart: Card [ width = 100%,
             Text [ fontSize = 13, fontWeight = semibold, text = "Equity over time" ],
             EquityChart [ width = 100%, height = { app.narrow ? 200 : 260 },
-                pts = { app.points }, start = { app.start }, kill = 35 ]
+                pts = { app.points }, start = { app.start }, kill = 35, marks = { app.src.value?.changes ?? [] } ]
             ],
 
         closed: Card [ width = 100%, datapath = { app.src.value },
             Text [ fontSize = 13, fontWeight = semibold,
-                text = { "Closed trades (" + app.trades.length + ", " + signed(app.pnlSum) + ")" } ],
-            TradeRow [ datapath = :trades[] ]
+                text = { "Trades and rules changes (" + app.trades.length + " trades, " + signed(app.pnlSum) + ")" } ],
+            FeedRow [ datapath = :feed[], classFor = { :type == "change" ? ChangeRow : TradeRow } ]
             ]
         ]
     ]

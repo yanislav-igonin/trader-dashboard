@@ -5,8 +5,8 @@
     "id": "../../Private/trader-dashboard/app/trader.declare",
     "kind": "file",
     "v": {
-     "hash": "b47175b2f7af1c6c",
-     "size": 11619
+     "hash": "f8b1cc98f6facade",
+     "size": 15278
     }
    },
    {
@@ -109,8 +109,8 @@
     "id": "../../Private/trader-dashboard/app/data.json",
     "kind": "file",
     "v": {
-     "hash": "9f2cbaf929eb37e0",
-     "size": 19845
+     "hash": "3184f76f1216c859",
+     "size": 34581
     }
    },
    {
@@ -1082,6 +1082,7 @@
    "color": "names Color",
    "rich-doc": "renders on dom",
    "replication": "uses replication",
+   "class-for": "sets classFor",
    "animator": "constructs Spring, an Animator",
    "spring": "constructs Spring",
    "easing": "constructs Spring, an Animator"
@@ -1102,7 +1103,6 @@
    "routing",
    "size-report",
    "virtualize",
-   "class-for",
    "state",
    "islands",
    "tween",
