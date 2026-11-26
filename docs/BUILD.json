@@ -5,8 +5,8 @@
     "id": "../../Private/trader-dashboard/app/trader.declare",
     "kind": "file",
     "v": {
-     "hash": "f9f8c2378c973f92",
-     "size": 17629
+     "hash": "6ed6e8fededc2712",
+     "size": 23026
     }
    },
    {
@@ -26,6 +26,54 @@
     }
    },
    {
+    "id": "library/tabbar.declare",
+    "kind": "file",
+    "v": {
+     "hash": "8718231f9b8f4d55",
+     "size": 1821
+    }
+   },
+   {
+    "id": "library/segmented.declare",
+    "kind": "file",
+    "v": {
+     "hash": "f849dc918c7a843d",
+     "size": 21563
+    }
+   },
+   {
+    "id": "library/valuecontrol.declare",
+    "kind": "file",
+    "v": {
+     "hash": "2b044875a2b2155e",
+     "size": 14435
+    }
+   },
+   {
+    "id": "library/control.declare",
+    "kind": "file",
+    "v": {
+     "hash": "6f0592dfbc0bd6f3",
+     "size": 17220
+    }
+   },
+   {
+    "id": "library/textlabel.declare",
+    "kind": "file",
+    "v": {
+     "hash": "2b451f41548bd88f",
+     "size": 1548
+    }
+   },
+   {
+    "id": "library/icons/icon.declare",
+    "kind": "file",
+    "v": {
+     "hash": "ac2bb9399dccc9ef",
+     "size": 10501
+    }
+   },
+   {
     "id": "library/card.declare",
     "kind": "file",
     "v": {
@@ -42,27 +90,11 @@
     }
    },
    {
-    "id": "library/control.declare",
-    "kind": "file",
-    "v": {
-     "hash": "6f0592dfbc0bd6f3",
-     "size": 17220
-    }
-   },
-   {
     "id": "library/icons/appearance.declare",
     "kind": "file",
     "v": {
      "hash": "3e0608a931dd429d",
      "size": 5134
-    }
-   },
-   {
-    "id": "library/icons/icon.declare",
-    "kind": "file",
-    "v": {
-     "hash": "ac2bb9399dccc9ef",
-     "size": 10501
     }
    },
    {
@@ -106,11 +138,19 @@
     }
    },
    {
+    "id": "../../Private/trader-dashboard/app/bots.json",
+    "kind": "file",
+    "v": {
+     "hash": "68bda3fd316c9df8",
+     "size": 1043
+    }
+   },
+   {
     "id": "../../Private/trader-dashboard/app/data.json",
     "kind": "file",
     "v": {
-     "hash": "502a0b7de1f44931",
-     "size": 40569
+     "hash": "7388e44f7881b2c4",
+     "size": 40621
     }
    },
    {
@@ -1080,6 +1120,7 @@
  "capabilities": {
   "needed": {
    "color": "names Color",
+   "text-measure": "names measureText",
    "rich-doc": "renders on dom",
    "replication": "uses replication",
    "class-for": "sets classFor",
@@ -1095,7 +1136,6 @@
    "datapath-scanner",
    "compiler",
    "canvas-renderer",
-   "text-measure",
    "effects",
    "rich-dom",
    "rich-views",

@@ -53,6 +53,14 @@ schema FeedItem [ type: "trade" | "change", version: number, at: string, pnl: nu
 schema Position [ coin: string, side: string, kind: string, entry?: number, sl?: number, tp?: number,
     thesis?: string, invalidation?: string ]
 schema Prices [ BTC: number, ETH: number ]
+
+// bots.json, from ../export_bots.py (Freqtrade sqlite DBs): one entry per bot
+
+schema BotTrade [ pair: string, side: string, entry: number, exit?: number, pnl: number, at: string, why: string ]
+schema BotOpen [ pair: string, side: string, entry: number, stake: number, at: string ]
+schema Bot [ name: string, exchange: string, mode: string, strategy: string, start: number, balance: number, pnl: number,
+    trades: number, wins: number, winRate: number, open[]: BotOpen, curve[]: Point, recent[]: BotTrade ]
+schema Bots [ bots[]: Bot ]
 schema Walt [ status: string, startEquity: number, lastCheck: string, prices: Prices,
     positions[]: Position, equity[]: Point, trades[]: Trade, changes[]: Change, feed[]: FeedItem ]
 
@@ -224,6 +232,54 @@ class ChangeRow extends FeedRow [ padding = 12, cornerRadius = 10,
     ]
 
 
+// One rule-based bot: what it is, its totals, its open positions, its balance curve and its latest closed trades.
+
+class BotCard extends Card [ width = 100%,
+    tone: Color = { (:pnl ?? 0) < 0 ? provided("theme").down : provided("theme").up },
+    View [ width = 100%,
+        layout: SimpleLayout [ axis = x, align = center, spacing = 8 ],
+        Text [ flexes = true, fontSize = 17, fontWeight = bold, text = { :name } ],
+        View [ cornerRadius = 10, padding = [3, 10, 3, 10], fill = { Color.withAlpha(provided("theme").curve, 0.16) },
+            Text [ fontSize = 12, fontWeight = bold, textColor = { provided("theme").curve }, text = { :mode } ]
+            ]
+        ],
+    Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted }, text = { :exchange + " · " + :strategy } ],
+    View [ width = 100%,
+        layout: WrappingLayout [ columns = { app.narrow ? 2 : 4 }, spacing = 12, rowSpacing = 12 ],
+        Tile [ flexes = true, label = "Balance", value = { money(:balance) }, note = { "start " + money(:start) } ],
+        Tile [ flexes = true, label = "PnL", value = { signed(:pnl) }, note = "closed trades, net of fees", tone = { classroot.tone } ],
+        Tile [ flexes = true, label = "Trades", value = { "" + :trades }, note = { :wins + " wins" } ],
+        Tile [ flexes = true, label = "Win rate", value = { :winRate + "%" }, note = { (:open ?? []).length + " open now" } ]
+        ],
+    Text [ fontSize = 13, fontWeight = semibold, text = "Open positions" ],
+    Text [ visible = { (:open ?? []).length == 0 }, fontSize = 14, textColor = { provided("theme").textMuted }, text = "No open positions" ],
+    View [ datapath = :open[], width = 100%, padding = [6, 0, 6, 0],
+        stroke = { [Stroke(1, provided("theme").line), null, null, null] },
+        layout: SimpleLayout [ axis = x, spacing = 10 ],
+        Text [ flexes = true, fontWeight = semibold, text = { :pair + " " + :side } ],
+        Text [ fontSize = 13, textColor = { provided("theme").textMuted },
+            text = { "entry " + price(:entry) + ", " + money(:stake) + ", " + when(:at) } ]
+        ],
+    Text [ fontSize = 13, fontWeight = semibold, text = "Balance over time" ],
+    Text [ visible = { (:curve ?? []).length < 2 }, fontSize = 14, textColor = { provided("theme").textMuted }, text = "No closed trades yet" ],
+    EquityChart [ visible = { (:curve ?? []).length >= 2 }, width = 100%, height = { app.narrow ? 160 : 200 },
+        pts = { :curve ?? [] }, start = { :start }, kill = { :start } ],
+    Text [ fontSize = 13, fontWeight = semibold, text = { "Latest closed trades (" + (:recent ?? []).length + " of " + :trades + ")" } ],
+    View [ datapath = :recent[], width = 100%, padding = [6, 0, 6, 0],
+        stroke = { [Stroke(1, provided("theme").line), null, null, null] },
+        layout: SimpleLayout [ axis = x, spacing = 10 ],
+        View [ flexes = true,
+            layout: SimpleLayout [ axis = y, spacing = 2 ],
+            Text [ fontWeight = semibold, text = { :pair + " " + :side } ],
+            Text [ width = 100%, fontSize = 12, textColor = { provided("theme").textMuted },
+                text = { when(:at) + " UTC · " + :why + " · " + price(:entry) + " → " + price(:exit ?? 0) } ]
+            ],
+        Text [ fontWeight = semibold, text = { signed(:pnl) },
+            textColor = { :pnl < 0 ? provided("theme").down : :pnl > 0 ? provided("theme").up : provided("theme").textMuted } ]
+        ]
+    ]
+
+
 // ── The app
 
 App [ appName = "AI Trader", minWidth = 320,
@@ -240,6 +296,8 @@ App [ appName = "AI Trader", minWidth = 320,
     // the records
 
     src: DataSource [ url = "data.json", autoFetch = true, schema = Walt ],
+    bots: DataSource [ url = "bots.json", autoFetch = true, schema = Bots ],
+    tab: string = "agent",
 
     // what they say
 
@@ -260,82 +318,98 @@ App [ appName = "AI Trader", minWidth = 320,
     page: View [ x = center, width = { Math.min(960, parent.contentBox("width")) },
         layout: SimpleLayout [ axis = y, spacing = 12 ],
 
-        Text [ visible = { app.src.failed }, textColor = { provided("theme").down },
-            text = "Could not load data.json - run export.py" ],
-
-        // equity, big, against the start; the bot's status
-
-        hero: Card [ width = 100%,
-            top: View [ width = 100%,
-                layout: SimpleLayout [ axis = x, align = center, spacing = 8 ],
-                Text [ flexes = true, fontSize = 13, fontWeight = semibold, letterSpacing = 1,
-                    textColor = { provided("theme").textMuted }, text = "AI TRADER: $50 EXPERIMENT" ],
-                pill: View [ cornerRadius = 10, padding = [3, 10, 3, 10],
-                    fill = { Color.withAlpha(app.killed ? provided("theme").down : provided("theme").up, 0.18) },
-                    Text [ fontSize = 12, fontWeight = bold,
-                        textColor = { app.killed ? provided("theme").down : provided("theme").up },
-                        text = { app.src.value?.status ?? "..." } ]
-                    ],
-                appear: AppearanceSwitch [ dark = { app.darkUI }, width = { app.narrow ? 44 : 32 }, height = { app.narrow ? 44 : 32 },
-                    commit(v: boolean) { app.themeMode = v ? "dark" : "light"; saveMode(app.themeMode) }
-                    ]
-                ],
-            Text [ fontSize = { app.narrow ? 40 : 52 }, fontWeight = bold, text = { money(app.equity) } ],
-            Text [ fontSize = 15, fontWeight = semibold, textColor = { app.tone },
-                text = { signed(app.delta) + " (" + signed(app.delta / app.start * 100) + "%) vs " + money(app.start) + " start" } ],
-            Text [ fontSize = 12, textColor = { provided("theme").textMuted },
-                text = { "Last check " + when(app.src.value?.lastCheck ?? "") + " UTC" } ],
-            Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted },
-                text = "An AI agent trades crypto perpetuals with $50 on its own: a daily trend on BTC, ETH and the month's top-6 altcoins (all trend positions together risk at most 7.5%), plus one AI-picked casino bet a week, checking the market every 4 hours. Warns at $35, stops for good at $20." ]
+        TabBar [ width = { app.narrow ? parent.contentBox("width") : 360 }, value = { app.tab },
+            items = { [ ({ id: "agent", label: "Агентский трейдинг" }), ({ id: "bots", label: "Бот-трейдинг" }) ] },
+            commit(v: string) { app.tab = v }
             ],
 
-        // prices and totals
-
-        tiles: View [ width = 100%,
-            layout: WrappingLayout [ columns = { app.narrow ? 2 : 4 }, spacing = 12, rowSpacing = 12 ],
-            Tile [ flexes = true, label = "BTC", value = { price(app.src.value?.prices.BTC ?? 0) }, note = "last price" ],
-            Tile [ flexes = true, label = "ETH", value = { price(app.src.value?.prices.ETH ?? 0) }, note = "last price" ],
-            Tile [ flexes = true, label = "Trades", value = { "" + app.trades.length },
-                note = { app.wins + " wins / " + app.losses + " losses" } ],
-            Tile [ flexes = true, label = "Sum PnL", value = { signed(app.pnlSum) }, note = "all closed trades, net of fees",
-                tone = { app.pnlSum < 0 ? provided("theme").down : provided("theme").up } ]
+        botsPane: View [ width = 100%, visible = { app.tab == "bots" }, datapath = { app.bots.value },
+            accessibilityRole = tabPanel, accessibilityLabel = "Бот-трейдинг",
+            layout: SimpleLayout [ axis = y, spacing = 12 ],
+            Text [ visible = { app.bots.failed }, textColor = { provided("theme").down }, text = "Could not load bots.json - run export_bots.py" ],
+            BotCard [ datapath = :bots[] ]
             ],
 
-        positions: Card [ width = 100%, datapath = { app.src.value },
-            Text [ fontSize = 13, fontWeight = semibold, text = "Open positions" ],
-            Text [ visible = { app.noPositions }, fontSize = 14, textColor = { provided("theme").textMuted }, text = "No open positions" ],
+        agentPane: View [ width = 100%, visible = { app.tab == "agent" },
+            accessibilityRole = tabPanel, accessibilityLabel = "Агентский трейдинг",
+            layout: SimpleLayout [ axis = y, spacing = 12 ],
+            Text [ visible = { app.src.failed }, textColor = { provided("theme").down },
+                text = "Could not load data.json - run export.py" ],
 
-            // each: coin, side, trend or casino; its levels; a casino bet's reasoning
+            // equity, big, against the start; the bot's status
 
-            View [ datapath = :positions[], width = 100%, padding = [8, 0, 8, 0],
-                stroke = { [Stroke(1, provided("theme").line), null, null, null] },
-                layout: SimpleLayout [ axis = y, spacing = 4 ],
-                View [ width = 100%,
-                    layout: SimpleLayout [ axis = x, spacing = 8, align = center ],
-                    Text [ fontWeight = semibold, text = { :coin + " " + :side } ],
-                    View [ cornerRadius = 6, padding = [1, 6, 1, 6],
-                        fill = { Color.withAlpha(:kind == "casino" ? provided("theme").curve : provided("theme").textMuted, 0.16) },
-                        Text [ fontSize = 11, fontWeight = semibold, text = { :kind },
-                            textColor = { :kind == "casino" ? provided("theme").curve : provided("theme").textMuted } ]
+            hero: Card [ width = 100%,
+                top: View [ width = 100%,
+                    layout: SimpleLayout [ axis = x, align = center, spacing = 8 ],
+                    Text [ flexes = true, fontSize = 13, fontWeight = semibold, letterSpacing = 1,
+                        textColor = { provided("theme").textMuted }, text = "AI TRADER: $50 EXPERIMENT" ],
+                    pill: View [ cornerRadius = 10, padding = [3, 10, 3, 10],
+                        fill = { Color.withAlpha(app.killed ? provided("theme").down : provided("theme").up, 0.18) },
+                        Text [ fontSize = 12, fontWeight = bold,
+                            textColor = { app.killed ? provided("theme").down : provided("theme").up },
+                            text = { app.src.value?.status ?? "..." } ]
+                        ],
+                    appear: AppearanceSwitch [ dark = { app.darkUI }, width = { app.narrow ? 44 : 32 }, height = { app.narrow ? 44 : 32 },
+                        commit(v: boolean) { app.themeMode = v ? "dark" : "light"; saveMode(app.themeMode) }
                         ]
                     ],
+                Text [ fontSize = { app.narrow ? 40 : 52 }, fontWeight = bold, text = { money(app.equity) } ],
+                Text [ fontSize = 15, fontWeight = semibold, textColor = { app.tone },
+                    text = { signed(app.delta) + " (" + signed(app.delta / app.start * 100) + "%) vs " + money(app.start) + " start" } ],
+                Text [ fontSize = 12, textColor = { provided("theme").textMuted },
+                    text = { "Last check " + when(app.src.value?.lastCheck ?? "") + " UTC" } ],
                 Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted },
-                    text = { "entry " + (:entry == null ? "?" : price(:entry ?? 0)) + ", stop " + (:sl == null ? "none" : price(:sl ?? 0))
-                        + (:tp == null ? "" : ", take profit " + price(:tp ?? 0)) } ],
-                BetNote [ visible = { :kind == "casino" }, thesis = { :thesis ?? "" }, wrong = { :invalidation ?? "" } ]
+                    text = "An AI agent trades crypto perpetuals with $50 on its own: a daily trend on BTC, ETH and the month's top-6 altcoins (all trend positions together risk at most 7.5%), plus one AI-picked casino bet a week, checking the market every 4 hours. Warns at $35, stops for good at $20." ]
+                ],
+
+            // prices and totals
+
+            tiles: View [ width = 100%,
+                layout: WrappingLayout [ columns = { app.narrow ? 2 : 4 }, spacing = 12, rowSpacing = 12 ],
+                Tile [ flexes = true, label = "BTC", value = { price(app.src.value?.prices.BTC ?? 0) }, note = "last price" ],
+                Tile [ flexes = true, label = "ETH", value = { price(app.src.value?.prices.ETH ?? 0) }, note = "last price" ],
+                Tile [ flexes = true, label = "Trades", value = { "" + app.trades.length },
+                    note = { app.wins + " wins / " + app.losses + " losses" } ],
+                Tile [ flexes = true, label = "Sum PnL", value = { signed(app.pnlSum) }, note = "all closed trades, net of fees",
+                    tone = { app.pnlSum < 0 ? provided("theme").down : provided("theme").up } ]
+                ],
+
+            positions: Card [ width = 100%, datapath = { app.src.value },
+                Text [ fontSize = 13, fontWeight = semibold, text = "Open positions" ],
+                Text [ visible = { app.noPositions }, fontSize = 14, textColor = { provided("theme").textMuted }, text = "No open positions" ],
+
+                // each: coin, side, trend or casino; its levels; a casino bet's reasoning
+
+                View [ datapath = :positions[], width = 100%, padding = [8, 0, 8, 0],
+                    stroke = { [Stroke(1, provided("theme").line), null, null, null] },
+                    layout: SimpleLayout [ axis = y, spacing = 4 ],
+                    View [ width = 100%,
+                        layout: SimpleLayout [ axis = x, spacing = 8, align = center ],
+                        Text [ fontWeight = semibold, text = { :coin + " " + :side } ],
+                        View [ cornerRadius = 6, padding = [1, 6, 1, 6],
+                            fill = { Color.withAlpha(:kind == "casino" ? provided("theme").curve : provided("theme").textMuted, 0.16) },
+                            Text [ fontSize = 11, fontWeight = semibold, text = { :kind },
+                                textColor = { :kind == "casino" ? provided("theme").curve : provided("theme").textMuted } ]
+                            ]
+                        ],
+                    Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted },
+                        text = { "entry " + (:entry == null ? "?" : price(:entry ?? 0)) + ", stop " + (:sl == null ? "none" : price(:sl ?? 0))
+                            + (:tp == null ? "" : ", take profit " + price(:tp ?? 0)) } ],
+                    BetNote [ visible = { :kind == "casino" }, thesis = { :thesis ?? "" }, wrong = { :invalidation ?? "" } ]
+                    ]
+                ],
+
+            chart: Card [ width = 100%,
+                Text [ fontSize = 13, fontWeight = semibold, text = "Equity over time" ],
+                EquityChart [ width = 100%, height = { app.narrow ? 200 : 260 },
+                    pts = { app.points }, start = { app.start }, kill = 20, marks = { app.src.value?.changes ?? [] } ]
+                ],
+
+            closed: Card [ width = 100%, datapath = { app.src.value },
+                Text [ fontSize = 13, fontWeight = semibold,
+                    text = { "Trades and rules changes (" + app.trades.length + " trades, " + signed(app.pnlSum) + ")" } ],
+                FeedRow [ datapath = :feed[], classFor = { :type == "change" ? ChangeRow : TradeRow } ]
                 ]
-            ],
-
-        chart: Card [ width = 100%,
-            Text [ fontSize = 13, fontWeight = semibold, text = "Equity over time" ],
-            EquityChart [ width = 100%, height = { app.narrow ? 200 : 260 },
-                pts = { app.points }, start = { app.start }, kill = 20, marks = { app.src.value?.changes ?? [] } ]
-            ],
-
-        closed: Card [ width = 100%, datapath = { app.src.value },
-            Text [ fontSize = 13, fontWeight = semibold,
-                text = { "Trades and rules changes (" + app.trades.length + " trades, " + signed(app.pnlSum) + ")" } ],
-            FeedRow [ datapath = :feed[], classFor = { :type == "change" ? ChangeRow : TradeRow } ]
             ]
         ]
     ]
