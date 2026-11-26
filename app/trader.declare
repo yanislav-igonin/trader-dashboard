@@ -270,7 +270,7 @@ App [ appName = "AI Trader", minWidth = 320,
             Text [ fontSize = 12, textColor = { provided("theme").textMuted },
                 text = { "Last check " + when(app.src.value?.lastCheck ?? "") + " UTC" } ],
             Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted },
-                text = "An AI agent trades BTC and ETH perpetuals with $50 on its own, 3x leverage, checking the market every 30 minutes. Stops for good at $35." ]
+                text = "An AI agent trades crypto perpetuals with $50 on its own: a daily trend on BTC and ETH plus one AI-picked casino bet a week, checking the market every 4 hours. Stops for good at $35." ]
             ],
 
         // prices and totals
