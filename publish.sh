@@ -7,6 +7,6 @@ cp docs/data.json app/data.json
 git add docs/data.json app/data.json history.json
 if git diff --cached --quiet; then echo "publish: no change"; exit 0; fi
 git commit -qm "data: $(date -u +%Y-%m-%dT%H:%MZ)"
-git pull -q --rebase origin main  # Pages API edits (CNAME) land as commits upstream
+git pull -q --rebase --autostash origin main  # remote may have Pages commits; local WIP from editing sessions is set aside and restored
 git push -q origin main
 echo "publish: pushed"
