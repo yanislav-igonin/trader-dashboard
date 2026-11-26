@@ -4,8 +4,8 @@
 A public, read-only dashboard for the walt trading bot: equity against the $50 start,
 the bot's status, last prices, open positions, the equity curve from the
 journal with the start, the $35 kill switch and each rules change drawn in, and
-a feed of the closed trades grouped under the rules change they were opened
-under, so each change shows what came after it.
+a timeline of the closed trades and the rules changes, newest first: each change
+row sits where it happened, below the trades made under it.
 
 `data.json` beside this file is written by `../export.py` from the bot's
 `state.json` and `journal.md`; this program only reads it.

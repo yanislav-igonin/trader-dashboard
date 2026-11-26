@@ -53,10 +53,10 @@ def changes(chs, trs):
 
 
 def feed(trs, chs):
-    """Trades and rule changes in one list, newest first, grouped by rules version: each change row heads the trades
-    opened under it (a trade opened under v4 but closed after v5 still sits under v4)."""
+    """Trades and rule changes as one timeline, newest first: each change row sits where it happened, below the trades
+    made under it (a trade opened under v4 but closed after v5 still sits below the v5 row)."""
     items = [{"type": "trade", **t} for t in trs] + [{"type": "change", **c} for c in chs]
-    return sorted(items, key=lambda x: (x["version"], x["type"] == "change", x["at"]), reverse=True)
+    return sorted(items, key=lambda x: (x["version"], x["type"] == "trade", x["at"]), reverse=True)
 
 
 def merge(history, fresh):
@@ -116,8 +116,8 @@ def check():
     d = build({"status": "ACTIVE"}, j, old, led, chs)
     assert [t["coin"] for t in d["trades"]] == ["BTC", "ETH"] and d["trades"][0]["why"] == "stop loss", d["trades"]
     assert [(c["version"], c["trades"], c["pnl"]) for c in d["changes"]] == [(2, 1, -0.5), (1, 1, 0.1)], d["changes"]
-    # the v1 trade closed at the v2 change's minute but still sits under its own v1 header
-    assert [(x["type"], x["version"]) for x in d["feed"]] == [("change", 2), ("trade", 2), ("change", 1), ("trade", 1)], d["feed"]
+    # timeline: the v1 trade closed at the v2 change's minute but stays below the v2 row, above its own v1 row
+    assert [(x["type"], x["version"]) for x in d["feed"]] == [("trade", 2), ("change", 2), ("trade", 1), ("change", 1)], d["feed"]
     assert positions({"BTC": {"side": "short", "entry": 61000}}) == [{"coin": "BTC", "side": "short", "entry": 61000}]
     assert positions({"ETH": {"direction": "long", "entry_price": 1700}}) == [{"coin": "ETH", "side": "long", "entry": 1700}]
     print("check ok")
