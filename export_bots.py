@@ -10,8 +10,8 @@ from pathlib import Path
 AT = Path.home() / "Documents/Private/auto-trader"
 # one entry per bot; add more exchanges/bots here
 BOTS = [
-    {"name": "bybit-ema", "exchange": "Bybit USDT perp", "mode": "dry-run", "strategy": "EmaRsiScalp: EMA 9/21 cross + RSI, 1m, market orders", "start": 25.0, "db": AT / "user_data/tradesv3-ema.sqlite"},
-    {"name": "bybit-bb", "exchange": "Bybit USDT perp", "mode": "dry-run", "strategy": "BbRsiMaker: Bollinger + RSI mean reversion, 1m, post-only limits", "start": 25.0, "db": AT / "user_data/tradesv3-bb.sqlite"},
+    {"name": "bybit-ema", "exchange": "Bybit USDT perp", "mode": "demo", "strategy": "EmaRsiScalp: EMA 9/21 cross + RSI, 1m, market orders", "start": 25.0, "db": AT / "user_data/tradesv3-ema-demo.sqlite"},
+    {"name": "bybit-bb", "exchange": "Bybit USDT perp", "mode": "demo", "strategy": "BbRsiMaker: Bollinger + RSI mean reversion, 1m, post-only limits", "start": 25.0, "db": AT / "user_data/tradesv3-bb-demo.sqlite"},
 ]
 OUT = Path(__file__).with_name("docs") / "bots.json"
 RECENT, CURVE = 200, 400  # shortcut: caps instead of paging, move to a backend when trades > 1000 (ticket #222)
