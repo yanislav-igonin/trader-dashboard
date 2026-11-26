@@ -3,7 +3,7 @@
 
 A public, read-only dashboard for the walt trading bot: equity against the $50 start,
 the bot's status, last prices, open positions, the equity curve from the
-journal with the start, the $35 kill switch and each rules change drawn in, and
+journal with the start, the $20 kill switch and each rules change drawn in, and
 a timeline of the closed trades and the rules changes, newest first: each change
 row sits where it happened, below the trades made under it.
 
@@ -270,7 +270,7 @@ App [ appName = "AI Trader", minWidth = 320,
             Text [ fontSize = 12, textColor = { provided("theme").textMuted },
                 text = { "Last check " + when(app.src.value?.lastCheck ?? "") + " UTC" } ],
             Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted },
-                text = "An AI agent trades crypto perpetuals with $50 on its own: a daily trend on BTC and ETH plus one AI-picked casino bet a week, checking the market every 4 hours. Stops for good at $35." ]
+                text = "An AI agent trades crypto perpetuals with $50 on its own: a daily trend on BTC and ETH plus one AI-picked casino bet a week, checking the market every 4 hours. Warns at $35, stops for good at $20." ]
             ],
 
         // prices and totals
@@ -294,7 +294,7 @@ App [ appName = "AI Trader", minWidth = 320,
         chart: Card [ width = 100%,
             Text [ fontSize = 13, fontWeight = semibold, text = "Equity over time" ],
             EquityChart [ width = 100%, height = { app.narrow ? 200 : 260 },
-                pts = { app.points }, start = { app.start }, kill = 35, marks = { app.src.value?.changes ?? [] } ]
+                pts = { app.points }, start = { app.start }, kill = 20, marks = { app.src.value?.changes ?? [] } ]
             ],
 
         closed: Card [ width = 100%, datapath = { app.src.value },
