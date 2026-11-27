@@ -54,12 +54,12 @@ schema Position [ coin: string, side: string, kind: string, entry?: number, sl?:
     thesis?: string, invalidation?: string ]
 schema Prices [ BTC: number, ETH: number ]
 
-// bots.json, from ../export_bots.py (Freqtrade sqlite DBs): one entry per bot
+// bots.json, from ../export_bots.py (Freqtrade sqlite DBs): one entry per bot;
+// its feed mixes the latest trades with its behaviour changes, same FeedItem as the agent's
 
-schema BotTrade [ pair: string, side: string, entry: number, exit?: number, pnl: number, at: string, why: string ]
 schema BotOpen [ pair: string, side: string, entry: number, stake: number, at: string ]
 schema Bot [ name: string, exchange: string, mode: string, strategy: string, start: number, balance: number, pnl: number,
-    trades: number, wins: number, winRate: number, open[]: BotOpen, curve[]: Point, recent[]: BotTrade ]
+    trades: number, wins: number, winRate: number, open[]: BotOpen, curve[]: Point, version: number, shown: number, feed[]: FeedItem ]
 schema Bots [ bots[]: Bot ]
 schema Walt [ status: string, startEquity: number, lastCheck: string, prices: Prices,
     positions[]: Position, equity[]: Point, trades[]: Trade, changes[]: Change, feed[]: FeedItem ]
@@ -232,6 +232,21 @@ class ChangeRow extends FeedRow [ padding = 12, cornerRadius = 10,
     ]
 
 
+// A bot's closed trade: pair and side, when, why it closed, its prices, and what it made.
+
+class BotTradeRow extends FeedRow [ padding = [6, 0, 6, 0],
+    stroke = { [Stroke(1, provided("theme").line), null, null, null] },
+    layout: SimpleLayout [ axis = x, spacing = 10 ],
+    View [ flexes = true,
+        layout: SimpleLayout [ axis = y, spacing = 2 ],
+        Text [ fontWeight = semibold, text = { (:coin ?? "") + " " + (:side ?? "") } ],
+        Text [ width = 100%, fontSize = 12, textColor = { provided("theme").textMuted },
+            text = { when(:at) + " UTC · " + (:why ?? "") + " · " + price(:entry ?? 0) + " → " + price(:exit ?? 0) } ]
+        ],
+    Text [ fontWeight = semibold, text = { signed(:pnl) }, textColor = { classroot.tone } ]
+    ]
+
+
 // One rule-based bot: what it is, its totals, its open positions, its balance curve and its latest closed trades.
 
 class BotCard extends Card [ width = 100%,
@@ -241,6 +256,10 @@ class BotCard extends Card [ width = 100%,
         Text [ flexes = true, fontSize = 17, fontWeight = bold, text = { :name } ],
         View [ cornerRadius = 10, padding = [3, 10, 3, 10], fill = { Color.withAlpha(provided("theme").curve, 0.16) },
             Text [ fontSize = 12, fontWeight = bold, textColor = { provided("theme").curve }, text = { :mode } ]
+            ],
+        View [ visible = { (:version ?? 0) > 0 }, cornerRadius = 10, padding = [3, 10, 3, 10],
+            fill = { Color.withAlpha(provided("theme").textMuted, 0.16) },
+            Text [ fontSize = 12, fontWeight = bold, textColor = { provided("theme").textMuted }, text = { "v" + :version } ]
             ]
         ],
     Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted }, text = { :exchange + " · " + :strategy } ],
@@ -264,19 +283,9 @@ class BotCard extends Card [ width = 100%,
     Text [ visible = { (:curve ?? []).length < 2 }, fontSize = 14, textColor = { provided("theme").textMuted }, text = "No closed trades yet" ],
     EquityChart [ visible = { (:curve ?? []).length >= 2 }, width = 100%, height = { app.narrow ? 160 : 200 },
         pts = { :curve ?? [] }, start = { :start }, kill = { :start } ],
-    Text [ fontSize = 13, fontWeight = semibold, text = { "Latest closed trades (" + (:recent ?? []).length + " of " + :trades + ")" } ],
-    View [ datapath = :recent[], width = 100%, padding = [6, 0, 6, 0],
-        stroke = { [Stroke(1, provided("theme").line), null, null, null] },
-        layout: SimpleLayout [ axis = x, spacing = 10 ],
-        View [ flexes = true,
-            layout: SimpleLayout [ axis = y, spacing = 2 ],
-            Text [ fontWeight = semibold, text = { :pair + " " + :side } ],
-            Text [ width = 100%, fontSize = 12, textColor = { provided("theme").textMuted },
-                text = { when(:at) + " UTC · " + :why + " · " + price(:entry) + " → " + price(:exit ?? 0) } ]
-            ],
-        Text [ fontWeight = semibold, text = { signed(:pnl) },
-            textColor = { :pnl < 0 ? provided("theme").down : :pnl > 0 ? provided("theme").up : provided("theme").textMuted } ]
-        ]
+    Text [ fontSize = 13, fontWeight = semibold,
+        text = { "Trades and behaviour changes (latest " + (:shown ?? 0) + " of " + :trades + " trades)" } ],
+    FeedRow [ datapath = :feed[], classFor = { :type == "change" ? ChangeRow : BotTradeRow } ]
     ]
 
 

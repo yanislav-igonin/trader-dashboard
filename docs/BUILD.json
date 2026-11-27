@@ -5,8 +5,8 @@
     "id": "../../Private/trader-dashboard/app/trader.declare",
     "kind": "file",
     "v": {
-     "hash": "6b7875656b8f923d",
-     "size": 23011
+     "hash": "2a8e9beeda058098",
+     "size": 23424
     }
    },
    {
@@ -141,16 +141,16 @@
     "id": "../../Private/trader-dashboard/app/bots.json",
     "kind": "file",
     "v": {
-     "hash": "ffd221c6267bc358",
-     "size": 856
+     "hash": "09845cdf573e4eb3",
+     "size": 47650
     }
    },
    {
     "id": "../../Private/trader-dashboard/app/data.json",
     "kind": "file",
     "v": {
-     "hash": "7388e44f7881b2c4",
-     "size": 40621
+     "hash": "0a229adf828d184e",
+     "size": 41007
     }
    },
    {
