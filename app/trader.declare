@@ -308,6 +308,8 @@ App [ appName = "AI Trader", minWidth = 320,
     src: DataSource [ url = "data.json", autoFetch = true, schema = Walt ],
     bots: DataSource [ url = "bots.json", autoFetch = true, schema = Bots ],
     tab: string = "agent",
+    botTab: string = "",
+    botSel: string = { app.botTab != "" ? app.botTab : ((app.bots.value?.bots ?? [])[0]?.name ?? "") },
 
     // what they say
 
@@ -337,7 +339,11 @@ App [ appName = "AI Trader", minWidth = 320,
             accessibilityRole = tabPanel, accessibilityLabel = "Бот-трейдинг",
             layout: SimpleLayout [ axis = y, spacing = 12 ],
             Text [ visible = { app.bots.failed }, textColor = { provided("theme").down }, text = "Could not load bots.json - run export_bots.py" ],
-            BotCard [ datapath = :bots[] ]
+            TabBar [ width = { app.narrow ? parent.contentBox("width") : 480 }, value = { app.botSel },
+                items = { (app.bots.value?.bots ?? []).map((b) => ({ id: b.name, label: b.name.replace("bybit-", "") })) },
+                commit(v: string) { app.botTab = v }
+                ],
+            BotCard [ datapath = :bots[], visible = { :name == app.botSel } ]
             ],
 
         agentPane: View [ width = 100%, visible = { app.tab == "agent" },

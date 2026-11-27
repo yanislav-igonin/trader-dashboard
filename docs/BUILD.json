@@ -5,8 +5,8 @@
     "id": "../../Private/trader-dashboard/app/trader.declare",
     "kind": "file",
     "v": {
-     "hash": "7ed52c072c3cd46a",
-     "size": 23545
+     "hash": "b6e315e08031d039",
+     "size": 24009
     }
    },
    {
@@ -141,7 +141,7 @@
     "id": "../../Private/trader-dashboard/app/bots.json",
     "kind": "file",
     "v": {
-     "hash": "3edf3d3f92457c16",
+     "hash": "3b9b7bf218a73442",
      "size": 53655
     }
    },
