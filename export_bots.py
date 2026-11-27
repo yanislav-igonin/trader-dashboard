@@ -13,6 +13,7 @@ AT = Path.home() / "Documents/Private/auto-trader"
 BOTS = [
     {"name": "bybit-ema", "exchange": "Bybit USDT perp", "mode": "demo", "strategy": "EmaRsiScalp v2: EMA 9/21 cross with the 1h trend (EMA50/200, ADX>20), ATR take profit 2x / stop 1x, maker limits", "start": 25.0, "db": AT / "user_data/tradesv3-ema-demo.sqlite"},
     {"name": "bybit-bb", "exchange": "Bybit USDT perp", "mode": "demo", "strategy": "BbRsiMaker v2: 1h Bollinger + RSI mean reversion in a range (ADX<20) with the EMA200 trend, exit at the mid, ATR stop", "start": 25.0, "db": AT / "user_data/tradesv3-bb-demo.sqlite"},
+    {"name": "bybit-mm", "exchange": "Bybit USDT perp", "mode": "demo", "strategy": "MarketMaker v1: post-only bid and ask around the mid (LTC/AVAX/NEAR), spread from 0.3% widened by volatility, inventory skew and cap, profit from the spread", "start": 25.0, "db": AT / "user_data/mm-demo.sqlite", "kind": "mm"},
 ]
 CHANGES = AT / "docs/changes.json"  # [{bot, version, at, title, what, why, oos}], one per behaviour change
 OUT = Path(__file__).with_name("docs") / "bots.json"
@@ -68,13 +69,19 @@ def summarize(bot, rows, changes=()):
             "shown": min(len(closed), RECENT), "feed": feed(closed, changes)}
 
 
-def read(db):
+# auto-trader bots/mm round trips and open positions, mapped to Freqtrade trades columns
+MM_SQL = """select symbol pair, side='short' is_short, 0 is_open, entry open_rate, exit close_rate, pnl close_profit_abs,
+    qty*entry stake_amount, open_time open_date, close_time close_date, 'spread' exit_reason from trades
+  union all select symbol, qty<0, 1, avg, null, null, abs(qty)*avg, opened, null, null from pos where qty != 0"""
+
+
+def read(db, kind=None):
     if not db.exists():
         return []
     con = sqlite3.connect(f"file:{db}?mode=ro", uri=True)
     con.row_factory = sqlite3.Row
     try:
-        return [dict(r) for r in con.execute("select * from trades")]
+        return [dict(r) for r in con.execute(MM_SQL if kind == "mm" else "select * from trades")]
     finally:
         con.close()
 
@@ -94,6 +101,14 @@ def check():
     assert [(x["type"], x["version"]) for x in s["feed"]] == [("trade", 2), ("change", 2), ("trade", 1), ("change", 1)], s["feed"]
     assert (s["version"], s["feed"][1]["trades"], s["feed"][1]["pnl"], s["feed"][3]["wins"]) == (2, 1, -0.5, 1), s["feed"]
     assert s["feed"][1]["what"] == "y Почему: z Бэктест: pf 1.2" and s["feed"][0]["coin"] == "SOL", s["feed"]
+    con = sqlite3.connect(":memory:")  # mm adapter against the mm schema
+    con.executescript("""create table trades(open_time, close_time, symbol, side, qty, entry, exit, fee, pnl);
+        create table pos(symbol, qty, avg, opened, fee);
+        insert into trades values ('2026-11-27 10:00:00','2026-11-27 10:05:00','LTC/USDT:USDT','short',0.1,44.6,44.3,0.002,0.028);
+        insert into pos values ('NEAR/USDT:USDT',-1.9,3.1,'2026-11-27 10:06:00',0.001), ('AVAX/USDT:USDT',0,0,'x',0);""")
+    con.row_factory = sqlite3.Row
+    s = summarize(BOTS[2], [dict(r) for r in con.execute(MM_SQL)])
+    assert (s["trades"], s["pnl"], s["feed"][0]["side"], s["open"][0]["side"], len(s["open"])) == (1, 0.028, "short", "short", 1), s
     print("check ok")
 
 
@@ -103,6 +118,6 @@ if __name__ == "__main__":
         sys.exit()
     out = Path(sys.argv[1]) if len(sys.argv) > 1 else OUT
     changes = json.loads(CHANGES.read_text()) if CHANGES.exists() else []
-    data = {"bots": [summarize(b, read(b["db"]), [c for c in changes if c["bot"] == b["name"]]) for b in BOTS]}
+    data = {"bots": [summarize(b, read(b["db"], b.get("kind")), [c for c in changes if c["bot"] == b["name"]]) for b in BOTS]}
     out.write_text(json.dumps(data, ensure_ascii=False, separators=(",", ":")))
     print(out, sum(b["trades"] for b in data["bots"]), "trades")
