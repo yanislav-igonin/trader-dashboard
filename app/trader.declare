@@ -58,7 +58,7 @@ schema Prices [ BTC: number, ETH: number ]
 // its feed mixes the latest trades with its behaviour changes, same FeedItem as the agent's
 
 schema BotOpen [ pair: string, side: string, entry: number, stake: number, at: string ]
-schema Bot [ name: string, exchange: string, mode: string, strategy: string, start: number, balance: number, pnl: number,
+schema Bot [ name: string, exchange: string, mode: string, strategy: string, status: string, start: number, balance: number, pnl: number,
     trades: number, wins: number, winRate: number, open[]: BotOpen, curve[]: Point, version: number, shown: number, feed[]: FeedItem ]
 schema Bots [ bots[]: Bot ]
 schema Walt [ status: string, startEquity: number, lastCheck: string, prices: Prices,
@@ -263,6 +263,7 @@ class BotCard extends Card [ width = 100%,
             ]
         ],
     Text [ width = 100%, fontSize = 13, textColor = { provided("theme").textMuted }, text = { :exchange + " · " + :strategy } ],
+    Text [ visible = { (:status ?? "") != "" }, width = 100%, fontSize = 13, text = { :status ?? "" } ],
     View [ width = 100%,
         layout: WrappingLayout [ columns = { app.narrow ? 2 : 4 }, spacing = 12, rowSpacing = 12 ],
         Tile [ flexes = true, label = "Balance", value = { money(:balance) }, note = { "start " + money(:start) } ],
