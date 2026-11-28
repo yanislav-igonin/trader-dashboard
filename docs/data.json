@@ -1,13 +1,13 @@
 {
  "status": "ACTIVE",
  "startEquity": 50,
- "lastCheck": "2026-11-28T00:06Z",
+ "lastCheck": "2026-11-28T04:06Z",
  "prices": {
-  "BTC": 59990.4,
-  "ETH": 1664.22,
-  "SOL": 71.702,
-  "HYPE": 63.69,
-  "ZEC": 736.35
+  "BTC": 60050.1,
+  "ETH": 1666.46,
+  "SOL": 71.763,
+  "HYPE": 64.275,
+  "ZEC": 750.54
  },
  "positions": [
   {
@@ -15,7 +15,7 @@
    "side": "short",
    "kind": "trend",
    "entry": 60795.7,
-   "sl": 62176.5,
+   "sl": 62026.1,
    "tp": null,
    "thesis": null,
    "invalidation": null
@@ -25,7 +25,7 @@
    "side": "short",
    "kind": "trend",
    "entry": 1704.93,
-   "sl": 1748.97,
+   "sl": 1743.51,
    "tp": null,
    "thesis": null,
    "invalidation": null
@@ -35,7 +35,7 @@
    "side": "short",
    "kind": "trend",
    "entry": 71.06,
-   "sl": 75.032,
+   "sl": 74.841,
    "tp": null,
    "thesis": null,
    "invalidation": null
@@ -1169,6 +1169,10 @@
   {
    "t": "2026-11-28T00:06Z",
    "v": 48.3
+  },
+  {
+   "t": "2026-11-28T04:06Z",
+   "v": 48.24
   }
  ],
  "trades": [
