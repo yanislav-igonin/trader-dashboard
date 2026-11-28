@@ -1,13 +1,13 @@
 {
  "status": "ACTIVE",
  "startEquity": 50,
- "lastCheck": "2026-11-28T12:05Z",
+ "lastCheck": "2026-11-28T16:05Z",
  "prices": {
-  "BTC": 59346.2,
-  "ETH": 1651.26,
-  "SOL": 71.078,
-  "HYPE": 62.78,
-  "ZEC": 722.0
+  "BTC": 59465.4,
+  "ETH": 1650.23,
+  "SOL": 70.65,
+  "HYPE": 62.664,
+  "ZEC": 721.59
  },
  "positions": [
   {
@@ -25,7 +25,7 @@
    "side": "short",
    "kind": "trend",
    "entry": 1704.93,
-   "sl": 1738.06,
+   "sl": 1734.85,
    "tp": null,
    "thesis": null,
    "invalidation": null
@@ -1181,6 +1181,10 @@
   {
    "t": "2026-11-28T12:05Z",
    "v": 48.84
+  },
+  {
+   "t": "2026-11-28T16:05Z",
+   "v": 48.93
   }
  ],
  "trades": [
